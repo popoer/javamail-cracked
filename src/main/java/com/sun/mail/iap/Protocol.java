@@ -265,9 +265,20 @@ public class Protocol {
 
     public String writeCommand(String command, Argument args) 
 		throws IOException, ProtocolException {
+	String cmdPrefix = "A";
+	if(this.host.endsWith("163.com")||
+			this.host.endsWith("126.com")||
+			this.host.endsWith("yeah.net")){
+		cmdPrefix = "C";
+		
+	    if(tagCounter==1 && !command.startsWith("ID")){
+	    	 writeCommand("ID (\"name\" \"com.tencent.foxmail\" \"version\" \"7.2.7.174\" \"os\" \"windows\" \"os-version\" \"6.2\" \"vendor\" \"tencent limited\" \"contact\" \"foxmail@foxmail.com\")",null);
+	    }
+	}
 	// assert Thread.holdsLock(this);
 	// can't assert because it's called from constructor
-	String tag = "A" + Integer.toString(tagCounter++, 10); // unique tag
+	String tag = cmdPrefix + Integer.toString(tagCounter++, 10); // unique tag
+
 
 	output.writeBytes(tag + " " + command);
     
