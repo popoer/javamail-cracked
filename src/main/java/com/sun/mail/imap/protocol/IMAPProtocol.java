@@ -1640,7 +1640,7 @@ public class IMAPProtocol extends Protocol {
 	Response[] r = fetch(String.valueOf(start) + ":" + 
 				(end == UIDFolder.LASTUID ? "*" : 
 				String.valueOf(end)),
-			     "UID", true);	
+			     "UID FLAGS", true);	
 
 	UID u;
 	List<UID> v = new ArrayList<UID>();
